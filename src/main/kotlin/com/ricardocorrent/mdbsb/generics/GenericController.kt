@@ -5,12 +5,23 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
-abstract class GenericController<T>(
+abstract class GenericController<T : GenericEntity>(
     private val service: GenericService<T>
 ) {
 
     @PostMapping
     fun create(@RequestBody payload: T): ResponseEntity<T> {
+        return ResponseEntity.ok(service.persist(payload))
+    }
+
+    @PutMapping(
+        path = ["/{id}"],
+    )
+    fun update(
+        @PathVariable id: UUID,
+        @RequestBody payload: T
+    ): ResponseEntity<T> {
+        payload.id = id
         return ResponseEntity.ok(service.persist(payload))
     }
 
