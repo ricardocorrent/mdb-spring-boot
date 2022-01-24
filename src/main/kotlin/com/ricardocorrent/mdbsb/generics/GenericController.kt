@@ -10,7 +10,7 @@ abstract class GenericController<T : GenericEntity>(
 ) {
 
     @PostMapping
-    fun create(@RequestBody payload: T): ResponseEntity<T> {
+    fun create(@RequestBody(required = true) payload: T): ResponseEntity<T> {
         return ResponseEntity.ok(service.persist(payload))
     }
 
@@ -19,7 +19,7 @@ abstract class GenericController<T : GenericEntity>(
     )
     fun update(
         @PathVariable id: UUID,
-        @RequestBody payload: T
+        @RequestBody(required = true) payload: T
     ): ResponseEntity<T> {
         payload.id = id
         return ResponseEntity.ok(service.persist(payload))

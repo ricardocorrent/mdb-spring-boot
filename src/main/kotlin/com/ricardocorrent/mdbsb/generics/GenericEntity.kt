@@ -8,7 +8,7 @@ abstract class GenericEntity {
     open var id: UUID? = null
 
     init {
-        id = UUID.randomUUID()
+        id = id ?: UUID.randomUUID()
     }
 
 }

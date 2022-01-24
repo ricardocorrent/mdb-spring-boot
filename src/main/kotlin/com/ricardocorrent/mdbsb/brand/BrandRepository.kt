@@ -6,4 +6,5 @@ import java.util.*
 
 @Repository
 interface BrandRepository : MongoRepository<Brand, UUID> {
+    fun findByName(name: String) : Brand?
 }
